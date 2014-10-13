@@ -9,7 +9,10 @@ ob_start("phpMinimize");
 
 
 <script type="text/javascript">
-  WebFontConfig = {
+/* phpMinimize will
+erase this comment */
+// And this one too...
+  WebFontConfig = {     // Even this one!
     google: { families: [ 'Open+Sans:700,400:latin' ] }
   };
   (function() {
@@ -28,7 +31,7 @@ ob_start("phpMinimize");
 	/* This is a multiline comment in CSS*/
 	body{
 		background-color: #CCCCCC;
-		color: 000000;
+		color: #000000;
 		font-family: 'Open Sans', sans-serif;
 	}
 	pre{
