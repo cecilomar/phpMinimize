@@ -24,6 +24,11 @@ function phpMinimize($html){
 	// Remove HTML comments keeping conditional comments.
 	// Credits: Marcio Simao http://stackoverflow.com/questions/11337332/how-to-remove-html-comments-in-php
 	$html = preg_replace('<<!--(?!<!)[^\[>].*?-->>', '', $html);
+	
+	// Shorten HEX color that can be shortened, e.g. #FFFFFF => #FFF
+	// Credits: avinash-raj http://stackoverflow.com/questions/26332772/regular-expressions-to-search-for-hex-color-codes
+	$hex_char = '[a-f0-9A-F]';
+	$html = preg_replace("~#($hex_char)\\1($hex_char)\\2($hex_char)\\3~", '#$1$2$3', $html);
 
 	if($excludeTags[0])
 		foreach($excludeTags[0] as $tag)
