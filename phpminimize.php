@@ -10,16 +10,21 @@
 **/
  
 function phpMinimize($html){
-    preg_match_all('#(<(?:code|pre).*>[^<]+</(?:code|pre)>)#',$html,$excludeTags);
+	preg_match_all('#(<(?:code|pre).*>[^<]+</(?:code|pre)>)#',$html,$excludeTags);
 	$html = preg_replace('#<(?:code|pre).*>[^<]+</(?:code|pre)>#', '!!!excludeTag!!!', $html);
 	$html = preg_replace('#<!–[^\[].+–>#', '', $html);
 	$html = preg_replace('#[\r\n\t]+#', ' ', $html);
 	$html = preg_replace('#>[\s]+<#', '><', $html);
 	$html = preg_replace('#[\s]+#', ' ', $html);
-	// http://stackoverflow.com/questions/643113/regex-to-strip-comments-and-multi-line-comments-and-empty-lines
+
+	// Remove Multiline comments, e.g. /* this type of comments */
+	// Credits: chaos http://stackoverflow.com/questions/643113/regex-to-strip-comments-and-multi-line-comments-and-empty-lines
 	$html = preg_replace('!/\*.*?\*/!s', '', $html);
-	// http://stackoverflow.com/questions/11337332/how-to-remove-html-comments-in-php
+
+	// Remove HTML comments keeping conditional comments.
+	// Credits: Marcio Simao http://stackoverflow.com/questions/11337332/how-to-remove-html-comments-in-php
 	$html = preg_replace('<<!--(?!<!)[^\[>].*?-->>', '', $html);
+
 	if($excludeTags[0])
 		foreach($excludeTags[0] as $tag)
 			$html = preg_replace('/!!!excludeTag!!!/', $tag, $html,1);
