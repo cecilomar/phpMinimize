@@ -10,6 +10,11 @@
 **/
  
 function phpMinimize($html){
+	// Remove Multiline comments, e.g. // => this type of comments
+	// Credits: 
+	$html = preg_replace('/(?<!\:)\/\/(.*)\\n/', '', $html);
+
+	// Credits: MaxVandervelde https://gist.github.com/MaxVandervelde/2605283
 	preg_match_all('#(<(?:code|pre).*>[^<]+</(?:code|pre)>)#',$html,$excludeTags);
 	$html = preg_replace('#<(?:code|pre).*>[^<]+</(?:code|pre)>#', '!!!excludeTag!!!', $html);
 	$html = preg_replace('#<!–[^\[].+–>#', '', $html);
