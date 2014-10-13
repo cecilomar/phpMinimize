@@ -40,9 +40,12 @@ erase this comment */
 </style>
 
 <body>
+
+	<!-- phpMinimizer() will remove this HTML comment... -->
+	<!--[if IE 6]> Will                  not remove this kind though. On purpose! <![endif]-->
+
 	<h1>Test Page:</h1>
 	<p>This is an example of what <a href="https://github.com/cecilomar/phpMinimize" title="phpMinimize">phpMinimize()</a> can do.</p>
-
 
 <pre>
 This part is inside a &lt;pre&gt;

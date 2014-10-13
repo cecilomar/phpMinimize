@@ -29,7 +29,8 @@ function phpMinimize($html){
 	// http://stackoverflow.com/questions/643113/regex-to-strip-comments-and-multi-line-comments-and-empty-lines#answer-643136
 	$html = preg_replace('!/\*.*?\*/!s', '', $html);
 
-	// Remove HTML comments keeping conditional comments e.g. <!-- This type of comments -->
+	// Remove HTML comments keeping conditional comments or e.g. <!-- This type of comments -->
+	// Won't remove this type. <!--[if IE 6]> What is wrong with you? UPGRADE IE! <![endif]-->
 	// Credits: Marcio Simao
 	// http://stackoverflow.com/questions/11337332/how-to-remove-html-comments-in-php#answer-11337360
 	$html = preg_replace('<<!--(?!<!)[^\[>].*?-->>', '', $html);
