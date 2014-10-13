@@ -6,15 +6,17 @@
 * @copyright	Copyright (C) Cecilomar Design, Inc. 2014
 * @license		http://www.gnu.org/licenses/gpl.txt
 * @description	Compress HTML, CSS, JS, or combination
-* @credits		https://gist.github.com/MaxVandervelde/2605283
+* @credits		All over the code. Look for the // Comments
 **/
  
 function phpMinimize($html){
 	// Remove Multiline comments, e.g. // => this type of comments
-	// Credits: 
+	// Credits: CRISHK Corporation
+	// http://stackoverflow.com/questions/4278739/regular-expression-for-clean-javascript-comments-of-type#answer-4279738
 	$html = preg_replace('/(?<!\:)\/\/(.*)\\n/', '', $html);
 
-	// Credits: MaxVandervelde https://gist.github.com/MaxVandervelde/2605283
+	// Credits: MaxVandervelde
+	// https://gist.github.com/MaxVandervelde/2605283
 	preg_match_all('#(<(?:code|pre).*>[^<]+</(?:code|pre)>)#',$html,$excludeTags);
 	$html = preg_replace('#<(?:code|pre).*>[^<]+</(?:code|pre)>#', '!!!excludeTag!!!', $html);
 	$html = preg_replace('#<!–[^\[].+–>#', '', $html);
@@ -23,15 +25,18 @@ function phpMinimize($html){
 	$html = preg_replace('#[\s]+#', ' ', $html);
 
 	// Remove Multiline comments, e.g. /* this type of comments */
-	// Credits: chaos http://stackoverflow.com/questions/643113/regex-to-strip-comments-and-multi-line-comments-and-empty-lines
+	// Credits: chaos
+	// http://stackoverflow.com/questions/643113/regex-to-strip-comments-and-multi-line-comments-and-empty-lines#answer-643136
 	$html = preg_replace('!/\*.*?\*/!s', '', $html);
 
-	// Remove HTML comments keeping conditional comments.
-	// Credits: Marcio Simao http://stackoverflow.com/questions/11337332/how-to-remove-html-comments-in-php
+	// Remove HTML comments keeping conditional comments e.g. <!-- This type of comments -->
+	// Credits: Marcio Simao
+	// http://stackoverflow.com/questions/11337332/how-to-remove-html-comments-in-php#answer-11337360
 	$html = preg_replace('<<!--(?!<!)[^\[>].*?-->>', '', $html);
 	
 	// Shorten HEX color that can be shortened, e.g. #FFFFFF => #FFF
-	// Credits: avinash-raj http://stackoverflow.com/questions/26332772/regular-expressions-to-search-for-hex-color-codes
+	// Credits: Avinash Raj
+	// http://stackoverflow.com/questions/26332772/regular-expressions-to-search-for-hex-color-codes#answer-26332946
 	$hex_char = '[a-f0-9A-F]';
 	$html = preg_replace("~#($hex_char)\\1($hex_char)\\2($hex_char)\\3~", '#$1$2$3', $html);
 
