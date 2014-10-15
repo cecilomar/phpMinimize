@@ -41,6 +41,9 @@ function phpMinimize($html){
 	$hex_char = '[a-f0-9A-F]';
 	$html = preg_replace("~#($hex_char)\\1($hex_char)\\2($hex_char)\\3~", '#$1$2$3', $html);
 
+	// Just making sure that there are no double spaces around. I have to check those regex.
+	$html = str_ireplace('  ', ' ', $html);
+
 	if($excludeTags[0])
 		foreach($excludeTags[0] as $tag)
 			$html = preg_replace('/!!!excludeTag!!!/', $tag, $html,1);
